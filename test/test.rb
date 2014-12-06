@@ -1,7 +1,8 @@
-require_relative '../algorithms'
+require_relative '../lib/algorithms'
 
-# ed = Algorithms::EditDistance.new('you should not', 'thou shalt not')
-# puts ed.edit_distance
+ed = Algorithms::EditDistance.new('you should not', 'thou shalt not')
+ed.edit_distance
+ed.distance
 
 graph_one = Algorithms::Graph.new('/Users/joecanero/RubyAlgos/test/graph.txt')
 graph_one.display

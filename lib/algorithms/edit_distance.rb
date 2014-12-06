@@ -2,7 +2,7 @@ module Algorithms
   class EditDistance
     attr_reader :edit_matrix, :distance
     attr_accessor :x, :y
-    
+
     ## initialize the Edit Distance algorithm
     # accepts two strings: X and Y and creates a matrix of size |X| * |Y|
     # we want to pad @x and @y with a single space character in the beginning
@@ -33,6 +33,9 @@ module Algorithms
       @distance = @edit_matrix[@y.length - 1][@x.length - 1]
     end
 
+    def distance
+        puts "Edit Distance between '#{@x.lstrip}' and '#{@y.lstrip}': #{@distance}"
+    end
 
     private
 
