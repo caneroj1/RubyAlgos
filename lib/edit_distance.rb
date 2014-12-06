@@ -1,7 +1,8 @@
 module Algorithms
   class EditDistance
-    attr_reader :x, :y, :edit_matrix, :distance
-
+    attr_reader :edit_matrix, :distance
+    attr_accessor :x, :y
+    
     ## initialize the Edit Distance algorithm
     # accepts two strings: X and Y and creates a matrix of size |X| * |Y|
     # we want to pad @x and @y with a single space character in the beginning
