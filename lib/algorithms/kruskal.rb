@@ -17,7 +17,7 @@ module Algorithms
       sort_edges
       union_find = Algorithms::UnionFind.new(@graph.number_vertices)
       (0..@graph.number_edges).each do |i|
-        if (!(union_find.find(@edges[i].x) == union_find.find(@edges[i].y)))
+        if (!union_find.same_component?(@edges[i].x, @edges[i].y))
           puts "Minimum spanning tree has edge #{@edges[i].x} <-> #{@edges[i].y}"
           union_find.union(@edges[i].x, @edges[i].y)
         end
