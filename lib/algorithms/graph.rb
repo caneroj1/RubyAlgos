@@ -62,11 +62,18 @@ module Algorithms
     # the line is split by space. the first index is the current vertex we are at. this is used
     # as the index into the adjacency list. next, all the other numbers indicate which vertex the current one
     # connects to.
-    def insert_edge(data, continue = true)
+    def insert_edge(data, continue = true, weight = nil)
       index = data.shift
+      weight ||= -1
       data.each do |v|
-        @adjacency_list[index.to_i].push Node.new(v.to_i, 0)
-        insert_edge([v, index], false) if (!@directed && continue && @adjacency_list[v.to_i].nil?)
+        if @weighted && weight.eql?(-1)
+          tmp = v.split(',')
+          v, weight = tmp[0], tmp[1]
+        end
+
+        @adjacency_list[index.to_i].push Node.new(v.to_i, weight.to_i)
+        insert_edge([v, index], false, weight) if (!@directed && continue && @adjacency_list[v.to_i].nil?)
+        weight = -1
       end
     end
 
