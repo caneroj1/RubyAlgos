@@ -6,22 +6,31 @@ module Algorithms
 
     # kruskal's algorithm has a graph that is passed in so the algorithm can execute
     # from this graph, we create an edge array
-    attr_reader :graph, :edges
+    # the attribute weight stores the weight of the spanning tree
+    attr_reader :graph, :edges, :weight
 
     def initialize(g)
       @graph = g
+      @weight = 0
       @edges = create_edge_array
     end
 
     def find
+      puts "Finding the minimum spanning tree..."
       sort_edges
       union_find = Algorithms::UnionFind.new(@graph.number_vertices)
-      (0..@graph.number_edges).each do |i|
+      (0...@graph.number_edges).each do |i|
+        puts "#{i}"
         if (!union_find.same_component?(@edges[i].x, @edges[i].y))
           puts "Minimum spanning tree has edge #{@edges[i].x} <-> #{@edges[i].y}"
           union_find.union(@edges[i].x, @edges[i].y)
+          @weight += @edges[i].weight
         end
       end
+    end
+
+    def weight
+      "Weight of the minimum spanning tree: #{@weight}"
     end
 
     private

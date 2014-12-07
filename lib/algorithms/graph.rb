@@ -1,6 +1,8 @@
 module Algorithms
   class Graph
     require_relative 'node'
+    require_relative 'breadth_first_search'
+
     attr_reader :path, :adjacency_list, :number_vertices, :number_edges, :directed, :weighted
 
     # graph implementation using an adjacency list.
@@ -18,7 +20,22 @@ module Algorithms
       (1..@number_vertices).each do |i|
         print("#{i} -> ")
         @adjacency_list[i].each { |node| print ("#{node.next} ") }
-        print("\n")
+        print("\n\n")
+      end
+    end
+
+    # gets the shortest path between two vertices
+    # if the graph is unweighted, we can simply use breadth-first search
+    # and then we traverse up the parent array.
+    # if the graph is weighted, use dijkstra's algorithm
+    def path(vertex_one, vertex_two)
+      if !weighted
+        puts "Path from #{vertex_one} to #{vertex_two}"
+        get_path(Algorithms::BreadthFirstSearch.go(self, vertex_one, nil, nil, nil), vertex_one, vertex_two)
+        puts "---"
+      else
+        puts "The graph is weighted."
+        puts "Dijkstra's Not Implemented."
       end
     end
 
@@ -81,6 +98,16 @@ module Algorithms
     def parse_options(options)
       @directed = options[:directed] || nil
       @weighted = options[:weighted] || nil
+    end
+
+    # traverses up the parent array in reverse
+    def get_path(parent, start, end_v)
+      if start.eql?(end_v) || end_v.eql?(-1)
+        puts start
+      else
+        get_path(parent, start, parent[end_v])
+        puts end_v
+      end
     end
   end
 end

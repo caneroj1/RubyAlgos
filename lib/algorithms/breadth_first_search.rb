@@ -12,7 +12,7 @@ module Algorithms
         process_v_late  ||= lambda { |v| nil }
         process_edge    ||= lambda { |x, y, w| nil }
 
-        parent = Array.new(graph.number_vertices + 1, 0)
+        parent = Array.new(graph.number_vertices + 1, -1)
         processed = Array.new(graph.number_vertices + 1, false)
         discovered = Array.new(graph.number_vertices + 1, false)
         queue = []
