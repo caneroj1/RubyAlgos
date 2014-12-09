@@ -33,3 +33,21 @@ k.find
 puts "\n"
 
 puts k.weight
+
+graph_three.two_color
+
+graph_three.connected_components
+
+graph_one.connected_components
+
+graph_two.two_color
+
+graph_one.two_color
+
+graph_four = Algorithms::Graph.new('/Users/joecanero/RubyAlgos/test/graph4.txt')
+
+graph_four.two_color
+
+graph_five = Algorithms::Graph.new('/Users/joecanero/RubyAlgos/test/graph5.txt')
+
+graph_five.two_color

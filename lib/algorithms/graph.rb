@@ -4,19 +4,21 @@ module Algorithms
     require_relative 'breadth_first_search'
 
     attr_reader :path, :adjacency_list, :number_vertices, :number_edges, :directed, :weighted
+    attr_accessor :graph_name
 
     # graph implementation using an adjacency list.
     # accepts a filename where the graph is stored.
     # will initialize the graph by reading the file.
     def initialize(filename, options = {})
       @path = filename
+      make_name
       parse_options(options)
       create_graph
     end
 
     # prints the graph in a nice easily readable format
     def display
-      puts "------- Graph -------"
+      puts "------- #{@graph_name} -------"
       (1..@number_vertices).each do |i|
         print("#{i} -> ")
         @adjacency_list[i].each { |node| print ("#{node.next} ") }
@@ -32,11 +34,25 @@ module Algorithms
       if !weighted
         puts "Path from #{vertex_one} to #{vertex_two}"
         get_path(Algorithms::BreadthFirstSearch.go(self, vertex_one, nil, nil, nil), vertex_one, vertex_two)
-        puts "---"
+        puts "---\n"
       else
         puts "The graph is weighted."
         puts "Dijkstra's Not Implemented."
       end
+    end
+
+    # attempts to two color the graph using breadth first search
+    def two_color
+      puts "Attempting Two Coloring of #{@graph_name}"
+      result = Algorithms::BreadthFirstSearch.two_color(self)
+      puts result ? "Bipartite\n" : "Not Bipartite\n"
+    end
+
+    # does a search for all connected components using BFS
+    def connected_components
+      puts "Connected Components of #{@graph_name}"
+      components = Algorithms::BreadthFirstSearch.connected_components(self)
+      puts "Number of connected components: #{components}\n"
     end
 
     private
@@ -109,5 +125,11 @@ module Algorithms
         puts end_v
       end
     end
+
+    # names the graph by getting the name of the file without extension or other paths
+    def make_name
+      @graph_name = @path.gsub(File.dirname(@path), '').gsub(File.extname(@path), '').gsub('/', '')
+    end
   end
+
 end

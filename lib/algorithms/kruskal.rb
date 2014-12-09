@@ -12,11 +12,11 @@ module Algorithms
     def initialize(g)
       @graph = g
       @weight = 0
-      @edges = create_edge_array
+      create_edge_array
     end
 
     def find
-      puts "Finding the minimum spanning tree..."
+      puts "Finding the minimum spanning tree of #{@graph.graph_name}"
       sort_edges
       union_find = Algorithms::UnionFind.new(@graph.number_vertices)
       (0...@graph.number_edges).each do |i|
@@ -39,10 +39,9 @@ module Algorithms
     # the edge array is used to systematically look for edges so the union-find
     # data structure can work. The edge array is created via breadth-first search
     def create_edge_array
-      edges = []
-      process_edge = lambda { |x, y, w| edges.push Edge.new(x, y, w) }
+      @edges = []
+      process_edge = lambda { |x, y, w| @edges.push Edge.new(x, y, w) }
       Algorithms::BreadthFirstSearch.go(@graph, 1, nil, nil, process_edge)
-      edges
     end
 
     # sorts the edges based on their weight
