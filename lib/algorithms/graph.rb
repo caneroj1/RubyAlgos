@@ -105,7 +105,6 @@ module Algorithms
         end
 
         @adjacency_list[index.to_i].push Node.new(v.to_i, weight.to_i)
-        insert_edge([v, index], false, weight) if (!@directed && continue && @adjacency_list[v.to_i].nil?)
         weight = -1
       end
     end
@@ -118,8 +117,10 @@ module Algorithms
 
     # traverses up the parent array in reverse
     def get_path(parent, start, end_v)
-      if start.eql?(end_v) || end_v.eql?(-1)
+      if start.eql?(end_v)
         puts start
+      elsif parent[end_v].eql?(-1)
+        puts "No Path"
       else
         get_path(parent, start, parent[end_v])
         puts end_v

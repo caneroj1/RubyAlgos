@@ -11,10 +11,10 @@ graph_one.display
 
 puts "\n"
 
-graph_two = Algorithms::Graph.new('/Users/joecanero/RubyAlgos/test/graph2.txt', directed: false)
+graph_two = Algorithms::Graph.new('/Users/joecanero/RubyAlgos/test/graph2.txt', directed: true)
 graph_two.display
 
-graph_two.path(1, 4)
+graph_two.path(3, 4)
 
 puts "\n"
 
